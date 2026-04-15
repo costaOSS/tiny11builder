@@ -1,6 +1,8 @@
 # tiny11builder
 *Scripts to build a trimmed-down Windows 11 image - now in **PowerShell**!*
 
+> **Note:** This project now supports **Windows 11 25H2** with updates to remove new AI-powered bloatware including Recall, Click to Do, and additional telemetry settings.
+
 ## Introduction :
 Tiny11 builder, now completely overhauled. <br> After more than a year (for which I am so sorry) of no updates, tiny11 builder is now a much more complete and flexible solution - one script fits all. Also, it is a steppingstone for an even more fleshed-out solution.
 
@@ -44,7 +46,9 @@ C:/path/to/your/tiny11/script.ps1 -ISO <letter> -SCRATCH <letter>
 
 ---
 
-## What is removed:
+## What is removed (Windows 11 25H2 updated):
+
+> **New in 25H2:** Additional AI-powered components removed including Recall, Click to Do, and Windows AI packages.
 <table>
   <tbody>
     <tr>
@@ -108,6 +112,7 @@ You will be asked during image creation if you want to enable .net 3.5 support!
 ## Features to be implemented:
 - ~~disabling telemetry~~ (Implemented in the 04-29-24 release!)
 - ~~more ad suppression~~ (Partially implemented in the 09-06-25 release!)
+- ~~Windows 11 25H2 support~~ (Implemented in the 16-04-26 release!)
 - improved language and arch detection
 - more flexibility in what to keep and what to delete
 - maybe a GUI???
