@@ -46,9 +46,9 @@ C:/path/to/your/tiny11/script.ps1 -ISO <letter> -SCRATCH <letter>
 
 ---
 
-## What is removed (Windows 11 25H2 updated):
+## What is removed (Windows 11 25H2 comprehensive):
 
-> **New in 25H2:** Additional AI-powered components removed including Recall, Click to Do, and Windows AI packages.
+> **New in 25H2:** Full debloat including Recall, Click to Do, Windows AI Hub, Copilot, additional telemetry controls, and Group Policy app removal support.
 <table>
   <tbody>
     <tr>
@@ -58,37 +58,79 @@ C:/path/to/your/tiny11/script.ps1 -ISO <letter> -SCRATCH <letter>
     <tr>
       <td>
         <ul>
+          <li>3D Builder</li>
           <li>Clipchamp</li>
-          <li>News</li>
-          <li>Weather</li>
-          <li>Xbox</li>
-          <li>GetHelp</li>
-          <li>GetStarted</li>
-          <li>Office Hub</li>
-          <li>Solitaire</li>
-          <li>PeopleApp</li>
-          <li>PowerAutomate</li>
-          <li>ToDo</li>
-          <li>Alarms</li>
-          <li>Mail and Calendar</li>
+          <li>Copilot / Windows Copilot</li>
+          <li>Cortana</li>
+          <li>Dolby Access</li>
           <li>Feedback Hub</li>
+          <li>Gaming App (Xbox)</li>
+          <li>Get Help</li>
+          <li>Get Started</li>
+          <li>LinkedIn</li>
+          <li>Mail and Calendar</li>
           <li>Maps</li>
-          <li>Sound Recorder</li>
-          <li>Your Phone</li>
           <li>Media Player</li>
-          <li>QuickAssist</li>
-          <li>Internet Explorer</li>
-          <li>Tablet PC Math</li>
+          <li>Microsoft News</li>
+          <li>Microsoft Office Hub</li>
+          <li>Microsoft Photos</li>
+          <li>Microsoft Solitaire Collection</li>
+          <li>Microsoft Sticky Notes</li>
+          <li>Mixed Reality Portal</li>
+          <li>Office OneNote</li>
+          <li>Outlook for Windows</li>
+          <li>Paint</li>
+          <li>People</li>
+          <li>Power Automate Desktop</li>
+          <li>Quick Assist</li>
+          <li>Screen Sketch</li>
+          <li>Skype</li>
+          <li>Sound Recorder</li>
+          <li>Teams</li>
+          <li>To Do</li>
+          <li>Wallet</li>
+          <li>Weather</li>
+          <li>Windows AI Hub</li>
+          <li>Windows Calculator</li>
+          <li>Windows Camera</li>
+          <li>Windows Dev Home</li>
+          <li>Windows Feedback Hub</li>
+          <li>Windows Notepad</li>
+          <li>Windows Recovery</li>
+          <li>Windows Screen Sketch</li>
+          <li>Windows Terminal</li>
+          <li>Windows Web Experience</li>
+          <li>Your Phone</li>
+          <li>Zune Music and Video</li>
           <li>Edge</li>
           <li>OneDrive</li>
+        </ul>
+        <strong>Registry Optimizations:</strong>
+        <ul>
+          <li>Bypass TPM/CPU/RAM/SecureBoot checks</li>
+          <li>Disable Windows Defender (optional)</li>
+          <li>Disable telemetry and diagnostic data</li>
+          <li>Disable Cortana and Bing search</li>
+          <li>Disable Recall (25H2)</li>
+          <li>Disable Click to Do (25H2)</li>
+          <li>Disable Copilot</li>
+          <li>Disable sponsored apps</li>
+          <li>Enable local account bypass</li>
+          <li>Disable reserved storage</li>
+          <li>Disable BitLocker</li>
+          <li>Disable DiagTrack service</li>
+          <li>Disable Delivery Optimization</li>
+          <li>Disable Windows Error Reporting</li>
+          <li>Disable advertising info</li>
+          <li>Group Policy app removal (25H2)</li>
         </ul>
       </td>
       <td>
         <ul>
           <li>all from regular tiny +</li>
           <li>Windows Component Store (WinSxS)</li>
-          <li>Windows Defender (only disabled, can be enabled back if needed)</li>
-          <li>Windows Update (wouldn't work without WinSxS, enabling it would put the system in a state of failure)</li>
+          <li>Windows Defender (optional disable)</li>
+          <li>Windows Update (disabled for image stability)</li>
           <li>WinRE</li>
         </ul>
       </td>

@@ -206,11 +206,12 @@ $packagePrefixes = 'AppUp.IntelManagementandSecurityStatus',
 'Clipchamp.Clipchamp',
 'DolbyLaboratories.DolbyAccess',
 'DolbyLaboratories.DolbyDigitalPlusDecoderOEM',
+'Microsoft.3DBuilder',
+'Microsoft.549981C3F5F10',
 'Microsoft.BingNews',
 'Microsoft.BingSearch',
 'Microsoft.BingWeather',
 'Microsoft.Copilot',
-'Microsoft.Windows.CrossDevice',
 'Microsoft.GamingApp',
 'Microsoft.GetHelp',
 'Microsoft.Getstarted',
@@ -230,16 +231,26 @@ $packagePrefixes = 'AppUp.IntelManagementandSecurityStatus',
 'Microsoft.StartExperiencesApp',
 'Microsoft.Todos',
 'Microsoft.Wallet',
+'Microsoft.Windows.AIHub',
+'Microsoft.Windows.CrossDevice',
 'Microsoft.Windows.DevHome',
+'Microsoft.Windows.Photos',
+'Microsoft.Windows.Recovery',
+'Microsoft.Windows.ScreenSketch',
+'Microsoft.Windows.WebExperience',
 'Microsoft.Windows.Copilot',
 'Microsoft.Windows.Teams',
 'Microsoft.WindowsAlarms',
+'Microsoft.WindowsCalculator',
 'Microsoft.WindowsCamera',
-'microsoft.windowscommunicationsapps',
+'Microsoft.WindowsCommunicationsApp',
 'Microsoft.WindowsFeedbackHub',
 'Microsoft.WindowsMaps',
+'Microsoft.WindowsMediaPlayer',
+'Microsoft.WindowsNotepad',
 'Microsoft.WindowsSoundRecorder',
 'Microsoft.WindowsTerminal',
+'Microsoft.WindowsWeather',
 'Microsoft.Xbox.TCUI',
 'Microsoft.XboxApp',
 'Microsoft.XboxGameOverlay',
@@ -249,16 +260,15 @@ $packagePrefixes = 'AppUp.IntelManagementandSecurityStatus',
 'Microsoft.YourPhone',
 'Microsoft.ZuneMusic',
 'Microsoft.ZuneVideo',
-'MicrosoftCorporationII.MicrosoftFamily',
 'MicrosoftCorporationII.QuickAssist',
+'MicrosoftCorporationII.MicrosoftFamily',
 'MSTeams',
 'MicrosoftTeams',
 'Microsoft.WindowsTerminal',
-'Microsoft.549981C3F5F10',
-'Microsoft.Windows.AI',
-'Microsoft.Windows.Recovery',
+'Microsoft.Clipchamp',
 'Microsoft.Windows.ClickToRun',
-'Microsoft.Windows.SecHealthUI'
+'Microsoft.Windows.SecHealthUI',
+'LinkedIn'
 
 $packagesToRemove = $packages | Where-Object {
     $packageName = $_
@@ -389,6 +399,19 @@ Write-Output "Prevents installation of Teams:"
 Set-RegistryValue 'HKLM\zSOFTWARE\Policies\Microsoft\Teams' 'DisableInstallation' 'REG_DWORD' '1'
 Write-Output "Prevent installation of New Outlook":
 Set-RegistryValue 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\Windows Mail' 'PreventRun' 'REG_DWORD' '1'
+Write-Output "Setting Group Policy for Windows 11 25H2 app removal:"
+Set-RegistryValue 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\Appx\RemoveDefaultMicrosoftStorePackages' 'Enabled' 'REG_DWORD' '1'
+Write-Output "Disabling DiagTrack service:"
+Set-RegistryValue 'HKLM\zSYSTEM\ControlSet001\Services\DiagTrack' 'Start' 'REG_DWORD' '4'
+Write-Output "Disabling Delivery Optimization:"
+Set-RegistryValue 'HKLM\zSOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config' 'DODownloadMode' 'REG_DWORD' '0'
+Write-Output "Disabling Windows Error Reporting:"
+Set-RegistryValue 'HKLM\zSOFTWARE\Microsoft\Windows\Windows Error Reporting' 'Disabled' 'REG_DWORD' '1'
+Write-Output "Disabling advertising info via policy:"
+Set-RegistryValue 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo' 'DisabledByGroupPolicy' 'REG_DWORD' '1'
+Write-Output "Disabling Feedback notifications:"
+Set-RegistryValue 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\Siuf\Rules' 'NumberOfSIUFInPeriod' 'REG_DWORD' '0'
+Set-RegistryValue 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\CloudContent' 'DisableTailoredExperiencesWithDiagnosticData' 'REG_DWORD' '1'
 
 Write-Host "Deleting scheduled task definition files..."
 $tasksPath = "$ScratchDisk\scratchdir\Windows\System32\Tasks"

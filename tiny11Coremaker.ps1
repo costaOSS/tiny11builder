@@ -116,7 +116,7 @@ $packages = & 'dism' '/English' "/image:$($env:SystemDrive)\scratchdir" '/Get-Pr
             $matches[1]
         }
     }
-$packagePrefixes = 'Clipchamp.Clipchamp_', 'Microsoft.BingNews_', 'Microsoft.BingWeather_', 'Microsoft.GamingApp_', 'Microsoft.GetHelp_', 'Microsoft.Getstarted_', 'Microsoft.MicrosoftOfficeHub_', 'Microsoft.MicrosoftSolitaireCollection_', 'Microsoft.People_', 'Microsoft.PowerAutomateDesktop_', 'Microsoft.Todos_', 'Microsoft.WindowsAlarms_', 'microsoft.windowscommunicationsapps_', 'Microsoft.WindowsFeedbackHub_', 'Microsoft.WindowsMaps_', 'Microsoft.WindowsSoundRecorder_', 'Microsoft.Xbox.TCUI_', 'Microsoft.XboxGamingOverlay_', 'Microsoft.XboxGameOverlay_', 'Microsoft.XboxSpeechToTextOverlay_', 'Microsoft.YourPhone_', 'Microsoft.ZuneMusic_', 'Microsoft.ZuneVideo_', 'MicrosoftCorporationII.MicrosoftFamily_', 'MicrosoftCorporationII.QuickAssist_', 'MicrosoftTeams_', 'Microsoft.549981C3F5F10_', 'Microsoft.Windows.Copilot', 'MSTeams_', 'Microsoft.OutlookForWindows_', 'Microsoft.Windows.Teams_', 'Microsoft.Copilot_', 'Microsoft.Windows.AI_', 'Microsoft.Windows.Recovery_', 'Microsoft.Windows.ClickToRun_', 'Microsoft.Windows.SecHealthUI_'
+$packagePrefixes = 'Clipchamp.Clipchamp_', 'Microsoft.3DBuilder_', 'Microsoft.549981C3F5F10_', 'Microsoft.BingNews_', 'Microsoft.BingSearch_', 'Microsoft.BingWeather_', 'Microsoft.Copilot_', 'Microsoft.GamingApp_', 'Microsoft.GetHelp_', 'Microsoft.Getstarted_', 'Microsoft.Microsoft3DViewer_', 'Microsoft.MicrosoftOfficeHub_', 'Microsoft.MicrosoftSolitaireCollection_', 'Microsoft.MicrosoftStickyNotes_', 'Microsoft.MixedReality.Portal_', 'Microsoft.MSPaint_', 'Microsoft.Office.OneNote_', 'Microsoft.OfficePushNotificationUtility_', 'Microsoft.OutlookForWindows_', 'Microsoft.Paint_', 'Microsoft.People_', 'Microsoft.PowerAutomateDesktop_', 'Microsoft.SkypeApp_', 'Microsoft.StartExperiencesApp_', 'Microsoft.Todos_', 'Microsoft.Wallet_', 'Microsoft.Windows.AIHub_', 'Microsoft.Windows.CrossDevice_', 'Microsoft.Windows.DevHome_', 'Microsoft.Windows.Photos_', 'Microsoft.Windows.Recovery_', 'Microsoft.Windows.ScreenSketch_', 'Microsoft.Windows.WebExperience_', 'Microsoft.Windows.Copilot_', 'Microsoft.Windows.Teams_', 'Microsoft.WindowsAlarms_', 'Microsoft.WindowsCalculator_', 'Microsoft.WindowsCamera_', 'Microsoft.WindowsCommunicationsApp_', 'Microsoft.WindowsFeedbackHub_', 'Microsoft.WindowsMaps_', 'Microsoft.WindowsMediaPlayer_', 'Microsoft.WindowsNotepad_', 'Microsoft.WindowsSoundRecorder_', 'Microsoft.WindowsTerminal_', 'Microsoft.WindowsWeather_', 'Microsoft.Xbox.TCUI_', 'Microsoft.XboxApp_', 'Microsoft.XboxGameOverlay_', 'Microsoft.XboxGamingOverlay_', 'Microsoft.XboxIdentityProvider_', 'Microsoft.XboxSpeechToTextOverlay_', 'Microsoft.YourPhone_', 'Microsoft.ZuneMusic_', 'Microsoft.ZuneVideo_', 'MicrosoftCorporationII.MicrosoftFamily_', 'MicrosoftCorporationII.QuickAssist_', 'Microsoft.Windows.ClickToRun_', 'Microsoft.Windows.SecHealthUI_', 'MSTeams_', 'MicrosoftTeams_', 'Microsoft.WindowsTerminal_', 'LinkedIn_'
 
 $packagesToRemove = $packages | Where-Object {
     $packageName = $_
@@ -423,6 +423,19 @@ Write-Host "Prevents installation of Teams:"
 & 'reg' 'add' 'HKLM\zSOFTWARE\Policies\Microsoft\Teams' '/v' 'DisableInstallation' '/t' 'REG_DWORD' '/d' '1' '/f' | Out-Null
 Write-Host "Prevent installation of New Outlook":
 & 'reg' 'add' 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\Windows Mail' '/v' 'PreventRun' '/t' 'REG_DWORD' '/d' '1' '/f' | Out-Null
+Write-Host "Setting Group Policy for Windows 11 25H2 app removal:"
+& 'reg' 'add' 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\Appx\RemoveDefaultMicrosoftStorePackages' '/v' 'Enabled' '/t' 'REG_DWORD' '/d' '1' '/f' | Out-Null
+Write-Host "Disabling DiagTrack service:"
+& 'reg' 'add' 'HKLM\zSYSTEM\ControlSet001\Services\DiagTrack' '/v' 'Start' '/t' 'REG_DWORD' '/d' '4' '/f' | Out-Null
+Write-Host "Disabling Delivery Optimization:"
+& 'reg' 'add' 'HKLM\zSOFTWARE\Microsoft\Windows\CurrentVersion\DeliveryOptimization\Config' '/v' 'DODownloadMode' '/t' 'REG_DWORD' '/d' '0' '/f' | Out-Null
+Write-Host "Disabling Windows Error Reporting:"
+& 'reg' 'add' 'HKLM\zSOFTWARE\Microsoft\Windows\Windows Error Reporting' '/v' 'Disabled' '/t' 'REG_DWORD' '/d' '1' '/f' | Out-Null
+Write-Host "Disabling advertising info via policy:"
+& 'reg' 'add' 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\AdvertisingInfo' '/v' 'DisabledByGroupPolicy' '/t' 'REG_DWORD' '/d' '1' '/f' | Out-Null
+Write-Host "Disabling Feedback notifications:"
+& 'reg' 'add' 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\Siuf\Rules' '/v' 'NumberOfSIUFInPeriod' '/t' 'REG_DWORD' '/d' '0' '/f' | Out-Null
+& 'reg' 'add' 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\CloudContent' '/v' 'DisableTailoredExperiencesWithDiagnosticData' '/t' 'REG_DWORD' '/d' '1' '/f' | Out-Null
 $tasksPath = "C:\scratchdir\Windows\System32\Tasks"
 
 Write-Host "Deleting scheduled task definition files..."
