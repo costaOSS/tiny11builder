@@ -329,6 +329,24 @@ Copy-Item -Path "$PSScriptRoot\autounattend.xml" -Destination "$ScratchDisk\scra
 
 Write-Output "Disabling Reserved Storage:"
 Set-RegistryValue 'HKLM\zSOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager' 'ShippedWithReserves' 'REG_DWORD' '0'
+Write-Output "Do you want to disable Windows Defender? (y/n)"
+$disableDefender = Read-Host
+if ($disableDefender -eq 'y') {
+    Write-Output "Disabling Windows Defender..."
+    $defenderServicePaths = @(
+        "WinDefend",
+        "WdNisSvc",
+        "WdNisDrv",
+        "WdFilter",
+        "Sense"
+    )
+    foreach ($path in $defenderServicePaths) {
+        Set-RegistryValue "HKLM\zSYSTEM\ControlSet001\Services\$path" 'Start' 'REG_DWORD' '4'
+    }
+    Set-RegistryValue 'HKLM\zSOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer' 'SettingsPageVisibility' 'REG_SZ' 'hide:virus'
+} else {
+    Write-Output "Windows Defender will remain enabled."
+}
 Write-Output "Disabling BitLocker Device Encryption"
 Set-RegistryValue 'HKLM\zSYSTEM\ControlSet001\Control\BitLocker' 'PreventDeviceEncryption' 'REG_DWORD' '1'
 Write-Output "Disabling Chat icon:"
