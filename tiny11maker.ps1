@@ -24,7 +24,7 @@
 
 .NOTES
     Auteur: ntdevlabs
-    Date: 09-07-25
+    Date: 16-04-26
 #>
 
 #---------[ Parameters ]---------#
@@ -105,7 +105,7 @@ Start-Transcript -Path "$PSScriptRoot\tiny11_$(get-date -f yyyyMMdd_HHmms).log"
 
 $Host.UI.RawUI.WindowTitle = "Tiny11 image creator"
 Clear-Host
-Write-Output "Welcome to the tiny11 image creator! Release: 09-07-25"
+Write-Output "Welcome to the tiny11 image creator! Release: 16-04-26 (Windows 11 25H2)"
 
 $hostArchitecture = $Env:PROCESSOR_ARCHITECTURE
 New-Item -ItemType Directory -Force -Path "$ScratchDisk\tiny11\sources" | Out-Null
@@ -203,7 +203,7 @@ $packages = & 'dism' '/English' "/image:$($ScratchDisk)\scratchdir" '/Get-Provis
     }
 
 $packagePrefixes = 'AppUp.IntelManagementandSecurityStatus',
-'Clipchamp.Clipchamp', 
+'Clipchamp.Clipchamp',
 'DolbyLaboratories.DolbyAccess',
 'DolbyLaboratories.DolbyDigitalPlusDecoderOEM',
 'Microsoft.BingNews',
@@ -252,9 +252,13 @@ $packagePrefixes = 'AppUp.IntelManagementandSecurityStatus',
 'MicrosoftCorporationII.MicrosoftFamily',
 'MicrosoftCorporationII.QuickAssist',
 'MSTeams',
-'MicrosoftTeams', 
+'MicrosoftTeams',
 'Microsoft.WindowsTerminal',
-'Microsoft.549981C3F5F10'
+'Microsoft.549981C3F5F10',
+'Microsoft.Windows.AI',
+'Microsoft.Windows.Recovery',
+'Microsoft.Windows.ClickToRun',
+'Microsoft.Windows.SecHealthUI'
 
 $packagesToRemove = $packages | Where-Object {
     $packageName = $_
@@ -357,6 +361,12 @@ Write-Output "Disabling Copilot"
 Set-RegistryValue 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\WindowsCopilot' 'TurnOffWindowsCopilot' 'REG_DWORD' '1'
 Set-RegistryValue 'HKLM\zSOFTWARE\Policies\Microsoft\Edge' 'HubsSidebarEnabled' 'REG_DWORD' '0'
 Set-RegistryValue 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\Explorer' 'DisableSearchBoxSuggestions' 'REG_DWORD' '1'
+Write-Output "Disabling Recall (Windows 11 25H2):"
+Set-RegistryValue 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\WindowsAI' 'DisableAIDataCollection' 'REG_DWORD' '1'
+Set-RegistryValue 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\WindowsAI' 'DisableRecall' 'REG_DWORD' '1'
+Set-RegistryValue 'HKLM\zSOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' 'RecallEnabled' 'REG_DWORD' '0'
+Write-Output "Disabling Click to Do (Windows 11 25H2):"
+Set-RegistryValue 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\WindowsCopilot' 'DisableClickToDo' 'REG_DWORD' '1'
 Write-Output "Prevents installation of Teams:"
 Set-RegistryValue 'HKLM\zSOFTWARE\Policies\Microsoft\Teams' 'DisableInstallation' 'REG_DWORD' '1'
 Write-Output "Prevent installation of New Outlook":
